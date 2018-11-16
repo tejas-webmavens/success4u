@@ -1,0 +1,20 @@
+RewriteEngine on
+
+RewriteCond %{HTTP_REFERER} !^https://members.v-tradings.net/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://members.v-tradings.net$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://v-tradings.net/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://v-tradings.net$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.members.v-tradings.net/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.members.v-tradings.net$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.v-tradings.net/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.v-tradings.net$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://members.v-tradings.net/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://members.v-tradings.net$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://v-tradings.net/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://v-tradings.net$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.members.v-tradings.net/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.members.v-tradings.net$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.v-tradings.net/.*$      [NC]
+RewriteCond %{HTTP_REFERER} !^https://www.v-tradings.net$      [NC]
+RewriteRule .*\.(jpg|jpeg|gif|png|bmp)$ v-tradings.net [R,NC]
+

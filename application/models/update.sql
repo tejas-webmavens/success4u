@@ -1,0 +1,1 @@
+update `arm_memberpayment` set `AdminStatus`='0' Where `Payid`='65'; 
