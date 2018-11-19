@@ -1,0 +1,34 @@
+{
+    "name": "meow/halum",
+    "description": "This is official laravel helper file",
+	"type": "library",
+    "license": "Private",
+    "authors": [
+        {
+            "name": "Sherlock Holmes",
+            "email": "cronlab@icloud.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+	
+		"php": ">=5.4.0",
+	
+	},
+	    "autoload": {
+        "psr-4": {
+            "Meow\\Halum\\": "vendor/meow/halum/src"
+        },
+    },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Meow\\Halum\\MeowServiceProvider"
+      ],
+      "aliases": {
+        "Meow": "Meow\\Halum\\Facades"
+      }
+    }
+  },
+	
+}

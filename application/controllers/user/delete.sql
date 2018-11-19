@@ -1,0 +1,1 @@
+Delete from `arm_members` where `MemberId`>'179';

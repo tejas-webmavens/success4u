@@ -1,0 +1,2 @@
+[23-Oct-2017 08:05:21 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home1/vtrading/public_html/install/index.php on line 46
+[24-Oct-2017 09:39:25 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home1/vtrading/public_html/install/index.php on line 46

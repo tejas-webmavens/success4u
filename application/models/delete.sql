@@ -1,0 +1,1 @@
+DELETE FROM `arm_history` WHERE `HistoryId` IN(405,406,407,408) 

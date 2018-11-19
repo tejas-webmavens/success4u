@@ -1,0 +1,1 @@
+UPDATE `arm_navigation` SET `navHTML`='<li><a href="http://triearn.com/">Home</a></li><li><a href="/user/cms/About">About</a></li>' WHERE `id`='1';
