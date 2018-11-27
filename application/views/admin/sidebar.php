@@ -1126,6 +1126,10 @@
                             <a href="<?php echo base_url();?>admin/ranksetting">
                                 <span class="fa fa-users"></span> <?php echo ucwords('Rank settings'); ?> </a>
                         </li>
+                        <li>
+                            <a href="<?php echo base_url();?>admin/levelconfig">
+                                <span class="fa fa-users"></span> <?php echo ucwords('Level settings'); ?> </a>
+                        </li>
 
                     </ul>
                  
