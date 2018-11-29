@@ -89,24 +89,77 @@
 
                                     <div class="panel-body br-t">
 
-                                        <div class="allcp-form theme-primary">
+                                        <div class="allcp-form theme-primary" id="levelcommissiondiv">
 
 
                                             <div class="section row mb10">
                                                 <label for="level" class="field-label col-sm-3 ph10  text-left"><?= $this->lang->line('levelSettings') ?><sup><em class="state-error">*</em></sup></label>
-
-                                                <div class="col-sm-7 ph10">
+                                                <div class="col-sm-3 ph10">
+                                                    <input type='button' value='+' id='addlvlButton'  class="btn btn-bordered btn-primary"  />
+                                                    <input type='button' value='-' id='removelvlButton' class="btn btn-bordered btn-primary" />
+                                                </div>
+                                            </div>
+                                            <div class="section row mb10">
+                                                <div class="col-sm-3 ph10">
+                                                </div>
+                                                <div class="col-sm-3 ph10">
+                                                    <label for="level" class="field prepend-icon">
+                                                        <p><?= $this->lang->line('levelNumber') ?></p>
+                                                    </label>
+                                                    <?php echo form_error('level');?>
+                                                </div>
+                                                <div class="col-sm-3 ph10">
                                                     <label for="increase_per_trans" class="field prepend-icon">
-                                                        <input type="number" name="increase_per_trans" id="increase_per_trans" placeholder="<?= $this->lang->line('levelSettings') ?>"
-                                                        class="gui-input" value="<?php echo set_value('increase_per_trans', isset($this->data['field']) ? $this->data['field'] : '');?>" >
+                                                        <p><?= $this->lang->line('TransactionsCount') ?></p>
                                                     </label>
                                                     <?php echo form_error('increase_per_trans');?>
                                                 </div>
+                                                <div class="col-sm-3 ph10">
+                                                    <label for="increase_per_refer" class="field prepend-icon">
+                                                        <p><?= $this->lang->line('ReferCount') ?></p>
+                                                    </label>
+                                                    <?php echo form_error('increase_per_refer');?>
+                                                </div>
                                             </div>
-
-                                            <div class="panel-footer text-right">
-                                                <button type="submit" class="btn btn-bordered btn-primary"><?php echo  ucwords($this->lang->line('submit')); ?></button>
-                                            </div>
+                                            <?php
+                                            if($this->data['levelcount']>0){
+                                                foreach($this->data['field'] as $_data){
+                                            ?>
+                                                <div class="section row mb10">
+                                                    <div class="col-sm-3 ph10">
+                                                        <input type="hidden" name="id[]" value="<?= set_value('id', isset($_data->id) ? $_data->id : ''); ?>">
+                                                    </div>
+                                                    <div class="col-sm-3 ph10">
+                                                        <label for="level" class="field prepend-icon">
+                                                            <input type="number" name="level[]" id="level" placeholder="<?= $this->lang->line('levelNumber') ?>"
+                                                            class="gui-input" value="<?php echo set_value('level', isset($_data->level) ? $_data->level : '');?>" readonly>
+                                                        </label>
+                                                        <?php echo form_error('level');?>
+                                                    </div>
+                                                    <div class="col-sm-3 ph10">
+                                                        <label for="increase_per_trans" class="field prepend-icon">
+                                                            <input type="number" name="increase_per_trans[]" id="increase_per_trans" placeholder="<?= $this->lang->line('TransactionsCount') ?>"
+                                                            class="gui-input" value="<?php echo set_value('increase_per_trans', isset($_data->increase_per_trans) ? $_data->increase_per_trans : '');?>" >
+                                                        </label>
+                                                        <?php echo form_error('increase_per_trans');?>
+                                                    </div>
+                                                    <div class="col-sm-3 ph10">
+                                                        <label for="increase_per_refer" class="field prepend-icon">
+                                                            <input type="number" name="increase_per_refer[]" id="increase_per_refer" placeholder="<?= $this->lang->line('ReferCount') ?>"
+                                                            class="gui-input" value="<?php echo set_value('increase_per_refer', isset($_data->increase_per_refer) ? $_data->increase_per_refer : '');?>" >
+                                                        </label>
+                                                        <?php echo form_error('increase_per_refer');?>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+                                        </div>
+                                        <div class="panel-footer text-right">
+                                            <input type="hidden" id="lvlcount" name="lvlcount" value="<?php echo $this->data['levelcount'];?>">
+                                            <input type="hidden" id="masterlvlcount" value="<?php echo $this->data['levelcount'];?>">
+                                            <button type="submit" class="btn btn-bordered btn-primary"><?php echo  ucwords($this->lang->line('submit')); ?></button>
                                         </div>
                                     </div>
                                 </form>
@@ -229,6 +282,116 @@ function deleteAll(){
   $(document).ready(function() {
     $('#datatable2').DataTable();
 } );
+
+</script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        var counter = 2;
+        $("#addlvlButton").click(function () {
+           var counter = parseFloat(document.getElementById("lvlcount").value);
+           counter++;
+           document.getElementById("lvlcount").value = counter;
+
+           if(counter>15){
+            alert("Only 15 textboxes allow");
+            return false;
+        }   
+
+        var levelcommissiondiv = $(document.createElement('div'))
+        .attr("id", 'levelcommission' + counter).attr("class", 'section row mb10');
+
+        var text = '<div class="section row mb10"><div class="col-sm-3 ph10"></div><div class="col-sm-3 ph10"><label for="level" class="field prepend-icon"><input type="number" name="level[]" id="level" placeholder="<?= $this->lang->line('levelNumber') ?>" value="'+counter+'" class="gui-input" readonly></label></div><div class="col-sm-3 ph10"><label for="increase_per_trans" class="field prepend-icon"><input type="number" name="increase_per_trans[]" id="increase_per_trans" placeholder="<?= $this->lang->line('TransactionsCount') ?>" class="gui-input"></label></div><div class="col-sm-3 ph10"><label for="increase_per_refer" class="field prepend-icon"><input type="number" name="increase_per_refer[]" id="increase_per_refer" placeholder="<?= $this->lang->line('ReferCount') ?>" class="gui-input"></label></div></div>'
+        levelcommissiondiv.after().html(text);
+
+        levelcommissiondiv.appendTo("#levelcommissiondiv");
+
+
+        counter++;
+    });
+
+        $("#removelvlButton").click(function () {
+           var counter = parseFloat(document.getElementById("lvlcount").value);
+           var masterlvlcount = parseFloat(document.getElementById("masterlvlcount").value);
+           
+           if(counter==masterlvlcount){
+              alert("No more textbox to remove");
+              return false;
+          }   
+
+
+          $("#levelcommission" + counter).remove();
+          counter--;
+          document.getElementById("lvlcount").value = counter;
+
+      });
+
+        $("#getButtonValue").click(function () {
+
+            var msg = '';
+            for(i=1; i<counter; i++){
+              msg += "\n levelcommissiondiv #" + i + $('#levelcommissiondiv' + i).val();
+          }
+          alert(msg);
+      });
+    });
+
+
+$(document).ready(function(){
+
+    var counter = 2;
+
+    $("#addprtButton").click(function () {
+        var counter = parseFloat(document.getElementById("lvlprtcount").value);
+        counter++;
+        document.getElementById("lvlprtcount").value = counter;
+
+        if(counter>15){
+            alert("Only 15 textboxes allow");
+            return false;
+        }   
+        var levelcommissiondiv = $(document.createElement('div'))
+        .attr("id", 'productlevelcommission' + counter).attr("class", 'section row mb10');
+
+      /*  var levelcommissiondiv = $(document.createElement('div'))
+        .attr("id", 'productlevelcommission' + counter).attr("class", 'col-sm-7 ph10 mb10');
+*/
+
+        levelcommissiondiv.after().html('<label class="field-label col-sm-3 ph10 "></label><div class="col-sm-7 ph10 "><input type="text" name="productlevelcommission[]" placeholder="productLevel'+ counter+' Commission Amount" id="productlevelcommission'+ counter+'" value="" class="gui-input" ></div>');
+
+
+
+        levelcommissiondiv.appendTo("#productlevelcommissiondiv");
+
+        counter++;
+
+    });
+
+    $("#removeprtButton").click(function () {
+       var counter = parseFloat(document.getElementById("lvlprtcount").value);
+       if(counter==1){
+          alert("No more textbox to remove");
+          return false;
+      }   
+
+
+
+      $("#productlevelcommission" + counter).remove();
+      counter--;
+      document.getElementById("lvlprtcount").value = counter;
+
+  });
+
+    $("#getButtonValue").click(function () {
+
+        var msg = '';
+        for(i=1; i<counter; i++){
+          msg += "\n productlevelcommissiondiv #" + i + $('#productlevelcommissiondiv' + i).val();
+      }
+      alert(msg);
+  });
+});
 
 </script>
 </body>

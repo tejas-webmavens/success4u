@@ -16,18 +16,39 @@ class Levelconfig extends CI_Controller {
 		if($this->session->userdata('logged_in')) {
 			if($this->input->post('increase_per_trans')) {
 				$data = $this->input->post();
-				$wh = "id=1";
-				$result = $this->common_model->UpdateRecord($data, $wh, 'arm_levelconfig');
+				$data = $this->flip_keys($data);
+				foreach ($data as $_data) {
+					if(isset($_data['id'])){
+						$wh = 'id='.$_data['id'];
+						$result = $this->common_model->UpdateRecord($_data, $wh, 'arm_levelconfig');
+					}
+					else{
+						$this->common_model->SaveRecords($_data, 'arm_levelconfig');
+					}
+				}
+
 				$this->session->set_flashdata('success_message',$this->lang->line('successmessage'));
 				redirect('admin/levelconfig');
 			}
 			else{
-				$this->data['field'] = $this->Levelconfig_model->Getlevelsetup(1);
-				$this->load->view('admin/levelconfig', $this->data['field']);
+				$this->data['field'] = $this->Levelconfig_model->GetAllLevelSetup();
+				$this->data['levelcount'] = count($this->data['field']);
+				$this->load->view('admin/levelconfig', $this->data);
 			}
 		}
 		else{
 			redirect('admin/login');
 		}
+	}
+
+	function flip_keys($array){
+		$new_array = array();
+		foreach ($array as $outerKey=>$idata) {
+		   	foreach ($idata as $innerKey=>$innerdata) {
+		      	$new_array[$innerKey][$outerKey] = $innerdata;
+		    }
+		}
+
+		return $new_array;
 	}
 }
